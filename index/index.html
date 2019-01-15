@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/jquery.js"></script>
+</head>
+<body>
+    <button id="btn">发送请求</button>
+    <script>
+        function PromiseAJAX (obj = {}){
+            return new Promise((resolve,reject)=>{
+              $.ajax({
+                url: obj.url,
+                type: obj.type,
+                data: obj.data,
+                dataType:'json',
+                success:function(res){
+                    resolve(res)
+                },
+                error:function(err){
+                    reject(err)
+                }
+              })
+            })
+        }
+        /*------------------------------------------*/
+        $("#btn").on("click",function(){
+           // console.log(11111)
+           PromiseAJAX({
+               url:'/api/v1/proxy',
+               type:"get",
+               data:{
+               
+               },
+                }
+           )
+           .then(res =>{
+                console.log(res)
+           })
+        })
+        /*-----------------------------------------*/
+        fetch('/api/v1/proxy')
+        .then(res =>{
+            return res.json()
+        }).then(res =>{
+            console.log(res)
+        })
+    </script>
+</body>
+</html>
